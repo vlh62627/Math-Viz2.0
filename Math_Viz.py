@@ -150,11 +150,18 @@ if source and not has_text:
     st.image(img,width=220)
     st.caption("Problem Loaded from Image")
     
-    # Convert PIL image to bytes for Gemini
+    # Convert PIL image to Gemini File object
     img_bytes = io.BytesIO()
     img.save(img_bytes, format="PNG")
     img_bytes.seek(0)
-    content.append(img_bytes)
+    
+    file_obj = types.File(
+        uri=None,
+        mime_type="image/png",
+        file_bytes=img_bytes.read(),
+        name="problem.png"
+    )
+    content.append(file_obj)
     
     problem_text="Image Problem"
 elif typed_problem and not has_img:
