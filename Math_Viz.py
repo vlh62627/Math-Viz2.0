@@ -93,7 +93,7 @@ with col2:
 # ---------------------------------------
 # INPUT SECTION
 # ---------------------------------------
-st.subheader("1️⃣ Provide Math Problem")
+st.subheader("Provide Math Problem")
 text_key = f"text_{st.session_state.version}"
 upload_key = f"upload_{st.session_state.version}"
 cam_key = f"cam_{st.session_state.version}"
@@ -229,4 +229,5 @@ else:
 # ---------------------------------------
 st.divider()
 st.caption(f"Engine running: {model_choice}")
+
 
