@@ -29,7 +29,7 @@ st.markdown("""
 # ---------------------------------------
 # HEADER
 # ---------------------------------------
-st.markdown("<div class='math-header'>📐 VizAI Math Engine V3</div>", unsafe_allow_html=True)
+st.markdown("<div class='math-header'>📐 VizAI Math Engine</div>", unsafe_allow_html=True)
 st.markdown("<div class='attribution'>AI Homework Solver • Developed by Vijay</div>", unsafe_allow_html=True)
 
 # ---------------------------------------
@@ -229,3 +229,4 @@ else:
 # ---------------------------------------
 st.divider()
 st.caption(f"Engine running: {model_choice}")
+
