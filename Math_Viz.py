@@ -81,7 +81,7 @@ col1,col2 = st.columns(2)
 with col1:
     model_choice = st.selectbox(
         "🧠 AI Reasoning Engine",
-        ["gemini-2.0-flash-lite","gemini-2.0-flash","gemma-3-27b-it"]
+        ["gemma-3-27b-it","gemini-2.0-flash-lite","gemini-2.0-flash"]
     )
 with col2:
     complexity = st.select_slider(
@@ -229,3 +229,4 @@ else:
 # ---------------------------------------
 st.divider()
 st.caption(f"Engine running: {model_choice}")
+
