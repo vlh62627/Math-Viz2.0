@@ -4,13 +4,12 @@ from google.genai import types
 from PIL import Image, ImageEnhance, ImageFilter
 import datetime
 import io
-from base64 import b64encode
 
 # -------------------------------
 # PAGE CONFIG
 # -------------------------------
 st.set_page_config(
-    page_title="VizAI Math Engine",
+    page_title="VizAI Math Engine V4",
     page_icon="📐",
     layout="wide"
 )
@@ -149,8 +148,14 @@ if source and not has_text:
     img = Image.open(source)
     img = preprocess(img)
     st.image(img,width=220)
-    st.caption("Image loaded")
-    content.append(img)
+    st.caption("Problem Loaded from Image")
+    
+    # Convert PIL image to bytes for Gemini
+    img_bytes = io.BytesIO()
+    img.save(img_bytes, format="PNG")
+    img_bytes.seek(0)
+    content.append(img_bytes)
+    
     problem_text="Image Problem"
 elif typed_problem and not has_img:
     content.append(f"TEXT PROBLEM: {typed_problem}")
@@ -165,7 +170,6 @@ if content:
         st.session_state.answer=""
 
         with st.spinner("AI solving..."):
-
             try:
                 prompt = f"""
 You are an elite mathematics reasoning engine capable of handwritten and typed problems.
@@ -212,16 +216,19 @@ Explanation depth: {complexity}
 if st.session_state.mode=="result":
     st.divider()
     st.subheader("Solution")
+    
+    # Only text/LaTeX in result card
     st.markdown(f"<div class='result-card'><div class='katex'>{st.session_state.answer}</div></div>", unsafe_allow_html=True)
+    
     with st.expander("📖 Expand Solution Steps"):
         st.markdown(f"<div class='katex'>{st.session_state.answer}</div>", unsafe_allow_html=True)
-
+    
     st.download_button(
         "📥 Download Solution",
         st.session_state.answer,
         file_name="solution.txt"
     )
-
+    
     st.button("🔄 Solve Another Problem", on_click=reset_app)
 else:
     st.info("Enter a math problem or upload an image to begin.")
